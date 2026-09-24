@@ -1,0 +1,63 @@
+@UserManagementAPI_HostAddress = http://localhost:5190
+# Must match Authentication:Tokens (appsettings.Development.json in Development).
+@token = dev-only-token-change-me
+
+# Health check (no token required)
+GET {{UserManagementAPI_HostAddress}}/health
+Accept: application/json
+
+###
+
+# List users (paged: page >= 1, pageSize 1-100, default 50; total in X-Total-Count header)
+GET {{UserManagementAPI_HostAddress}}/api/users?page=1&pageSize=50
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+# Same request without a token -> 401
+GET {{UserManagementAPI_HostAddress}}/api/users
+Accept: application/json
+
+###
+
+# Get a user by ID
+GET {{UserManagementAPI_HostAddress}}/api/users/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+# Create a user
+POST {{UserManagementAPI_HostAddress}}/api/users
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "firstName": "Ada",
+  "lastName": "Lovelace",
+  "email": "ada.lovelace@techhive.com",
+  "department": "IT"
+}
+
+###
+
+# Update a user
+PUT {{UserManagementAPI_HostAddress}}/api/users/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "firstName": "Ada",
+  "lastName": "Lovelace",
+  "email": "ada.lovelace@techhive.com",
+  "department": "HR"
+}
+
+###
+
+# Delete a user
+DELETE {{UserManagementAPI_HostAddress}}/api/users/1
+Authorization: Bearer {{token}}
+
+###

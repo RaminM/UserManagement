@@ -1,0 +1,13 @@
+## .NET build output
+bin/
+obj/
+
+## IDE / user files
+.vs/
+*.user
+*.suo
+
+## Local secrets and overrides
+appsettings.Local.json
+secrets.json
+*.log
